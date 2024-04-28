@@ -1,45 +1,44 @@
-const dataForm=document.querySelector('#dataForm')
-const cityInput = document.querySelector('#city')
-const display = document.querySelector('#display')
-const city = 'Miami'
-
-const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a9d6f8d2e6cb7ba0fd3cf5c5fa3a4b45`;
+const btn=document.getElementById('btn')
+const city = document.getElementById('cityInput')
+const display=document.getElementById('display')
 
 
 
-// const weatherData = fetch(url).then(response => response.json()).then(data => data).catch(error => error)
-// console.log(weatherData);
 
-async function getWeather() {
+// get the city input to the url
+function getWeather() {
+    const place=city.value.trim().toLowerCase();
+    if (city === '') {
+        alert('Please enter a city name.');
+        return;
+    }
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=a9d6f8d2e6cb7ba0fd3cf5c5fa3a4b45`;
+
+    fetchWeather(url);
+}
+
+// async await fetch weather data from openweather api
+ 
+ async function fetchWeather(url) {
     try {
         const response = await fetch(url);
         const data = await response.json();
         console.log(data); // Optional: log the data to see the structure
 
         const weatherInfo = `
-            <p>Country: ${data.sys.country}</p>
-            <p >City: ${data.name}</p>
-            <p>Temperature: ${(data.main.temp-273.15).toFixed(1)}°C</p>
-            <p>Description: ${data.weather[0].description}</p>
-            <p>Wind Speed: ${data.wind.speed} mph</p>
-            <p>Humidity:${data.main.humidity}% </p>
+        <p class='text-xl'>Country: ${data.sys.country}</p>
+        <p class='text-blue-500 text-xl'>City: ${data.name}</p>
+        <p class='text-red-500'>Temperature: ${(data.main.temp-273.15).toFixed(1)}°C</p>
+        <p class='text-green-500'>Description: ${data.weather[0].description}</p>
+        <p>Wind Speed: ${data.wind.speed} mph</p>
+        <p>Humidity:${data.main.humidity}% </p>
         `;
         display.innerHTML = weatherInfo;
     } catch (error) {
-        const displayError=`<p >Error couldnt get city</p>`
-        console.error('Error fetching weather data:', error);
-        display.innerHTML=displayError
+        
+        display.innerHTML = `<p class='text-red-500 text-3xl'>Try again.</p>;`
     }
 }
 
-// Call the function to fetch weather data when the page loads
-window.onload = getWeather;
-
-
-
-
-
-
-
-
-
+// Add click event listener to fetch weather
+btn.addEventListener('click', getWeather);
