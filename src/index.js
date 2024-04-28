@@ -17,7 +17,7 @@ async function getWeather() {
         console.log(data); // Optional: log the data to see the structure
 
         const weatherInfo = `
-              <p>Country: ${data.sys.country}</p>
+            <p>Country: ${data.sys.country}</p>
             <p >City: ${data.name}</p>
             <p>Temperature: ${(data.main.temp-273.15).toFixed(1)}°C</p>
             <p>Description: ${data.weather[0].description}</p>
