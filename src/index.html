@@ -11,7 +11,14 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <div class="container"></div>
+        <div class="flex flex-col items-center p-12">
+            <h1 class="text-2xl py-4 font-bold">Weather</h1>
+            <form action="" id="data" class="flex gap-4">
+                <input type="text" class="border p-2 rounded-xl" placeholder="Enter name of  City">
+                <button class="bg-blue-500 text-white py-1 px-3 rounded-xl">Submit</button>
+            </form>
+            <div class="display"></div>
+        </div>
         <script src="index.js" async defer></script>
     </body>
 </html>
